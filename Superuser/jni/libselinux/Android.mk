@@ -5,18 +5,12 @@ common_SRC_FILES := \
 	src/canonicalize_context.c \
 	src/disable.c \
 	src/enabled.c \
-	src/fgetfilecon.c \
-	src/fsetfilecon.c \
 	src/getenforce.c \
-	src/getfilecon.c \
 	src/getpeercon.c \
-	src/lgetfilecon.c \
 	src/load_policy.c \
-	src/lsetfilecon.c \
 	src/policyvers.c \
 	src/procattr.c \
 	src/setenforce.c \
-	src/setfilecon.c \
 	src/context.c \
 	src/mapping.c \
 	src/stringrep.c \
