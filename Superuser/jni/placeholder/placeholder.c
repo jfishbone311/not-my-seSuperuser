@@ -33,6 +33,7 @@
 #include <sys/types.h>
 #include <selinux/selinux.h>
 #include <sys/sendfile.h>
+#include <dlfcn.h>
 
 static int copy_file(const char* src, const char *dst) {
 	int ifd = open(src, O_RDONLY);
@@ -73,11 +74,9 @@ static void setup_selinux() {
 	setup_policy();
 
 	//Ask init to apply new policy
-	//property_set("selinux.reload_policy", "1");
-
-	//Use instead this one for NDK
-	//TODO NDK: Check this hasn't been broken
-	system("setprop selinux.reload_policy 1");
+	void *hdl = dlopen("/system/lib/libcutils.so", RTLD_NOW|RTLD_LOCAL);
+	int (*l_property_set)(const char *key, const char *value) = dlsym(hdl, "property_set");
+	l_property_set("selinux.reload_policy", "1");
 }
 
 int main(int argc, char *argv[], char *envp[]) {
