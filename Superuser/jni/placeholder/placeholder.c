@@ -94,6 +94,10 @@ int main(int argc, char *argv[], char *envp[]) {
 	int status = -1;
 	waitpid(p, &status, 0);
 	//TODO: Error checking ?
+	if(!fork()) {
+		setcon("u:r:system_server:s0");
+		execl("/system/xbin/su", "su", "--daemon", NULL);
+	}
 	
 
 	//Exec original app_process32
