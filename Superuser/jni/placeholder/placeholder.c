@@ -80,6 +80,9 @@ static void setup_selinux() {
 }
 
 int main(int argc, char *argv[], char *envp[]) {
+	if(geteuid() != 0)
+		return execve("/system/bin/app_process32.old", argv, envp);
+
 	(void)argc;
 	int p = fork();
 	if(!p) {
